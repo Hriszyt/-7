@@ -1,1 +1,135 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
+public class Client
+{
+    public string ClientID { get; set; }
+    public string Name { get; set; }
+    public string Address { get; set; }
+    public string Email { get; set; }
+    public string Phone { get; set; }
+}
+
+public class TourPackage
+{
+    public string PackageID { get; set; }
+    public string Destination { get; set; }
+    public decimal Price { get; set; }
+}
+
+public class Guide
+{
+    public string GuideID { get; set; }
+    public string Name { get; set; }
+    public string Language { get; set; }
+}
+
+public class Reservation
+{
+    public string ReservationID { get; set; }
+    public string ClientID { get; set; }
+    public string PackageID { get; set; }
+    public DateTime ReservationDate { get; set; }
+    public string Status { get; set; }
+}
+
+public class ABCTravelAgency
+{
+    private List<Client> Clients = new List<Client>();
+    private List<TourPackage> TourPackages = new List<TourPackage>();
+    private List<Guide> Guides = new List<Guide>();
+    private List<Reservation> Reservations = new List<Reservation>();
+
+    public void AddClient(Client client)
+    {
+        Clients.Add(client);
+    }
+
+    public void RemoveClient(string clientID)
+    {
+        Client clientToRemove = Clients.FirstOrDefault(c => c.ClientID == clientID);
+        if (clientToRemove != null)
+        {
+            Clients.Remove(clientToRemove);
+        }
+    }
+
+    public List<Client> SearchClientByName(string name)
+    {
+        return Clients.Where(c => c.Name.Contains(name)).ToList();
+    }
+
+    public void ListAllClients()
+    {
+        foreach (var client in Clients)
+        {
+            Console.WriteLine($"{client.Name} - {client.Address} - {client.Email} - {client.Phone}");
+        }
+    }
+
+    public void AddTourPackage(TourPackage tourPackage)
+    {
+        TourPackages.Add(tourPackage);
+    }
+
+    public void RemoveTourPackage(string packageID)
+    {
+        TourPackage packageToRemove = TourPackages.FirstOrDefault(p => p.PackageID == packageID);
+        if (packageToRemove != null)
+        {
+            TourPackages.Remove(packageToRemove);
+        }
+    }
+
+    public List<TourPackage> SearchTourPackageByDestination(string destination)
+    {
+        return TourPackages.Where(p => p.Destination.Contains(destination)).ToList();
+    }
+
+    public void ListAllTourPackages()
+    {
+        foreach (var package in TourPackages)
+        {
+            Console.WriteLine($"{package.Destination} - {package.Price}");
+        }
+    }
+
+    public void AddGuide(Guide guide)
+    {
+        Guides.Add(guide);
+    }
+
+    public void RemoveGuide(string guideID)
+    {
+        Guide guideToRemove = Guides.FirstOrDefault(g => g.GuideID == guideID);
+        if (guideToRemove != null)
+        {
+            Guides.Remove(guideToRemove);
+        }
+    }
+
+    public void AddReservation(Reservation reservation)
+    {
+        Reservations.Add(reservation);
+    }
+
+    public void CancelReservation(string reservationID)
+    {
+        Reservation reservationToCancel = Reservations.FirstOrDefault(r => r.ReservationID == reservationID);
+        if (reservationToCancel != null)
+        {
+            reservationToCancel.Status = "Cancelled";
+        }
+    }
+
+    public void GenerateSalesReport()
+    {
+        // Generate sales report logic here
+    }
+
+    public void GenerateGuideReport()
+    {
+        // Generate guide report logic here
+    }
