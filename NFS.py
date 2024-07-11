@@ -2,7 +2,7 @@ def main():
     n = int(input())
     cars = {}
 
-    # Read car information
+    
     for _ in range(n):
         car_data = input().split("|")
         car = car_data[0]
@@ -48,7 +48,7 @@ def main():
                 cars[car]["mileage"] -= kilometers
                 print(f"{car} mileage decreased by {kilometers} kilometers")
 
-    # Print final state of cars
+    
     for car, data in cars.items():
         print(f"{car} -> Mileage: {data['mileage']} kms, Fuel in the tank: {data['fuel']} lt.")
 
